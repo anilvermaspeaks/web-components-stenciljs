@@ -21,9 +21,18 @@ class ToolTip extends HTMLElement {
             left:0;
             z-index: 100
         }
+
+        ::slotted(.tooltip-icon-text){
+            opacity:0.7;
+            text-decoration:underline
+        }
+
+        :host{
+            background:var(--color-primary, #ccc)
+        }
         
         </style>
-        <span><slot></slot> ...more
+        <span><slot></slot> (?)
         </span>`;
         if (this.hasAttribute('toolTipContent')) {
             this._toolTipContent = this.getAttribute('toolTipContent')
