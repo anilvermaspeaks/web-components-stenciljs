@@ -3,7 +3,9 @@ class ToolTip extends HTMLElement {
     constructor() {
         super();
         this._toolTipContainer;
+        this._toolTipIcon;
         this._toolTipContent = '';
+        this._toolTipVisible = false;
         this.attachShadow({
             mode: 'open'
         })
@@ -28,7 +30,8 @@ class ToolTip extends HTMLElement {
         }
 
         :host{
-            background:var(--color-primary, #ccc)
+            background:var(--color-primary, #ccc);
+            position:relative
         }
         
         </style>
@@ -37,21 +40,57 @@ class ToolTip extends HTMLElement {
         if (this.hasAttribute('toolTipContent')) {
             this._toolTipContent = this.getAttribute('toolTipContent')
         }
-        const toolTipIcon = this.shadowRoot.querySelector('span')
-        toolTipIcon.addEventListener('mouseenter', this._showTooltip.bind(this))
-        toolTipIcon.addEventListener('mouseleave', this._hideTooltip.bind(this))
-        this.shadowRoot.appendChild(toolTipIcon);
-        this.style.position = 'relative'
+        this._toolTipIcon = this.shadowRoot.querySelector('span')
+        this._toolTipIcon.addEventListener('mouseenter', this._showTooltip.bind(this))
+        this._toolTipIcon.addEventListener('mouseleave', this._hideTooltip.bind(this))
+    }
+
+    //update attribute/passed data as attribute
+    attributeChangedCallback(name, oldValue, newValue) {
+        if (oldValue === newValue) {
+            return
+        }
+
+        if (name === 'tooltipcontent') {
+            this._toolTipContent = newValue;
+        }
+    }
+
+    //enable data change
+    static get observedAttributes() {
+        return ['tooltipcontent']
+    }
+
+
+    //cleanup work
+    disconnectedCallback() {
+        this._toolTipIcon.removeEventListener('mouseenter', this._showTooltip)
+        this._toolTipIcon.removeEventListener('mouseleave', this._hideTooltip)
+    }
+
+
+    _render() {
+        if (this._toolTipVisible) {
+            this._toolTipContainer = document.createElement('p')
+            this._toolTipContainer.textContent = this._toolTipContent;
+            this.shadowRoot.appendChild(this._toolTipContainer);
+        }
+        else {
+            if (this._toolTipContainer) {
+                this.shadowRoot.removeChild(this._toolTipContainer);
+            }
+
+        }
     }
 
     _showTooltip() {
-        this._toolTipContainer = document.createElement('p')
-        this._toolTipContainer.textContent = this._toolTipContent;
-        this.shadowRoot.appendChild(this._toolTipContainer);
+        this._toolTipVisible = true;
+        this._render()
     }
 
     _hideTooltip() {
-        this.shadowRoot.removeChild(this._toolTipContainer);
+        this._toolTipVisible = false;
+        this._render()
     }
 
 
