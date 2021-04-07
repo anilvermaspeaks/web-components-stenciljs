@@ -1,0 +1,15 @@
+h1{
+  font-size: 30px;
+}
+
+.avs-modal-container{
+  position: fixed;
+  width: 100%;
+  max-width: 70%;
+  left: 50%;
+  transform: translateX(-50%);
+  box-shadow: 0pc 0px 6px #000;
+  padding: 30px;
+  box-sizing: border-box;
+
+}

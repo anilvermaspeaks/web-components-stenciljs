@@ -3,13 +3,38 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=5.0">
-  <title>Stencil Component Starter</title>
-  <script src="/build/mycomponent.js"></script>
+  <title>Modal Component</title>
+  <script src="/build/avsmodal.js"></script>
+
+  <style>
+  .modalContent{
+font-size: 16px;
+line-height: 1.6;
+  }
+
+
+  </style>
 
 </head>
 <body>
+  <button id="showModal">open popup</button>
+<avs-modal headertext="I am header"   class="avsModal">
+<p class="modalContent">dclkkld dckldkl dfklfkdklmdgfmgkf sfgkkgflkf fgkgf klgfkfkgf klfkmfggkmfmkgf klgfkmgf dclkkld dckldkl dfklfkdklmdgfmgkf sfgkkgflkf fgkgf klgfkfkgf klfkmfggkmfmkgf klgfkmgfdclkkld dckldkl dfklfkdklmdgfmgkf sfgkkgflkf fgkgf klgfkfkgf klfkmfggkmfmkgf klgfkmgf</p>
+</avs-modal>
 
-  <my-component first="Stencil" last="'Don't call me a framework' JS"></my-component>
 
+
+<script>
+
+const showModalBtn = document.querySelector('#showModal');
+const avsModal = document.querySelector('.avsModal')
+showModalBtn.addEventListener('click', ()=>{
+if(!avsModal.open){
+avsModal.onModalOpen()
+}
+})
+
+
+</script>
 </body>
 </html>

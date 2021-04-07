@@ -12,58 +12,51 @@ import '@stencil/core';
 
 export namespace Components {
 
-  interface MyComponent {
+  interface AvsModal {
     /**
-    * The first name
+    * header text
     */
-    'first': string;
+    'headertext': string;
+    'onModalOpen': () => void;
     /**
-    * The last name
+    * show/hide avs modal
     */
-    'last': string;
-    /**
-    * The middle name
-    */
-    'middle': string;
+    'open': boolean;
   }
-  interface MyComponentAttributes extends StencilHTMLAttributes {
+  interface AvsModalAttributes extends StencilHTMLAttributes {
     /**
-    * The first name
+    * header text
     */
-    'first'?: string;
+    'headertext'?: string;
     /**
-    * The last name
+    * show/hide avs modal
     */
-    'last'?: string;
-    /**
-    * The middle name
-    */
-    'middle'?: string;
+    'open'?: boolean;
   }
 }
 
 declare global {
   interface StencilElementInterfaces {
-    'MyComponent': Components.MyComponent;
+    'AvsModal': Components.AvsModal;
   }
 
   interface StencilIntrinsicElements {
-    'my-component': Components.MyComponentAttributes;
+    'avs-modal': Components.AvsModalAttributes;
   }
 
 
-  interface HTMLMyComponentElement extends Components.MyComponent, HTMLStencilElement {}
-  var HTMLMyComponentElement: {
-    prototype: HTMLMyComponentElement;
-    new (): HTMLMyComponentElement;
+  interface HTMLAvsModalElement extends Components.AvsModal, HTMLStencilElement {}
+  var HTMLAvsModalElement: {
+    prototype: HTMLAvsModalElement;
+    new (): HTMLAvsModalElement;
   };
 
   interface HTMLElementTagNameMap {
-    'my-component': HTMLMyComponentElement
+    'avs-modal': HTMLAvsModalElement
   }
 
   interface ElementTagNameMap {
-    'my-component': HTMLMyComponentElement;
+    'avs-modal': HTMLAvsModalElement;
   }
 
 
